@@ -1,0 +1,8 @@
+categories:
+- network
+questions:
+- variable: externalIpPools
+  default: true
+  desctiption: "External IP Addresses for Metallb"
+  label: External IP address pools
+  type: string

@@ -8,7 +8,7 @@
 # existingConfigMap specifies the name of an externally-defined
 # ConfigMap to use as the configuration. Helm will not manage the
 # contents of this ConfigMap, it is your responsibility to create it.
-existingConfigMap: metallb-config
+##existingConfigMap: metallb-config
 
 # configInline specifies MetalLB's configuration directly, in yaml
 # format. When configInline is used, Helm manages MetalLB's
@@ -18,6 +18,18 @@ existingConfigMap: metallb-config
 # Refer to https://metallb.universe.tf/configuration/ for
 # available options.
 configInline:
+  apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    namespace: metallb-system
+    name: config
+  data:
+    config: |
+      address-pools:
+      - name: default
+        protocol: layer2
+        addresses:
+        - {{ externalIpPools }}
 
 rbac:
   # create specifies whether to install and use RBAC rules.
